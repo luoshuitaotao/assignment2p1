@@ -25,6 +25,7 @@
                 <th>Acquired value</th>
                 <th>Acquired date</th>
                 <th>Recent value</th>
+                <th>Recent date</th>
                 <th colspan="3">Actions</th>
             </tr>
             </thead>
@@ -37,6 +38,7 @@
                     <td>{{ investment.acquired_value }}</td>
                     <td>{{ investment.acquired_date }}</td>
                     <td>{{ investment.recent_value }}</td>
+                    <td>{{ investment.recent_date }}</td>
                     <td><a href="{% url 'portfolio:investment_edit' pk=investment.pk %}"
                            class="btn btn-warning">Edit</a></td>
                     <td><a href="{% url 'portfolio:investment_delete' pk=investment.pk %}"
