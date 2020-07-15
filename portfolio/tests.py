@@ -17,13 +17,13 @@ class assignment2p1(unittest.TestCase):
         driver.get ("http://127.0.0.1:8000/admin")
         elem = driver.find_element_by_id ("id_username")
         elem.send_keys (user)
-        time.sleep(0)
+        time.sleep(3)
         elem = driver.find_element_by_id ("id_password")
         elem.send_keys (pwd)
-        time.sleep(0)
+        time.sleep(3)
         elem.send_keys (Keys.RETURN)
         assert "Logged In"
-        time.sleep (0)
+        time.sleep (3)
 
         #test add a new investment
         driver.get ("http://127.0.0.1:8000/investment/create/")
