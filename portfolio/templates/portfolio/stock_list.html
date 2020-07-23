@@ -2,8 +2,9 @@
 {% block content %}
 
 <html lang="en">
+    <body>
 
- <body>
+    <body>
     <style>
         body {
             background-color: beige;
@@ -47,11 +48,11 @@
             {% endfor %}
             </tbody>
         </table>
-        <div class="row">
+
+     <div class="row">
             <a href="{% url 'portfolio:stock_new' %}" class="row"><span
                     class="btn btn-primary">Add Stock</span></a>
         </div>
-
     </div>
     </body>
     </html>
