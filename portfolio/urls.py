@@ -18,5 +18,10 @@ urlpatterns = [
     path ('investment/<int:pk>/edit/', views.investment_edit, name='investment_edit'),
     path ('investment/<int:pk>/delete/', views.investment_delete, name='investment_delete'),
     path ('customer/<int:pk>/portfolio/', views.portfolio, name='portfolio'),
-
+    #path('pdf_detail', views.pdf_detail.as_view(),),
+    #path ('detail/<int:id>', views.investment_list, name='detail'),
+    #path ('<int:pk>', views.pdfDetail.as_view(),),
+    #path ('pdfDetail', views.pdfDetaill, name='pdfDetail'),
+    #path('deatil/<int:id>', views.detail_page,name="detail"),
+    path ('investment/download/', views.investments_download,name='investments_download'),
 ]

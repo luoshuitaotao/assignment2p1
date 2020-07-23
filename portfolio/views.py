@@ -6,6 +6,16 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.db.models import Sum
 
+#from easy_pdf.views import PDFTemplateResponseMixin
+#from django.views.generic import DetailView
+#from easy_pdf.views import PDFTemplateResponseMixin
+#from django.views.generic import DetailView
+
+from django.shortcuts import render, redirect
+from .utils import render_to_pdf
+from django.template.loader import render_to_string, get_template
+from django.http import HttpResponse
+
 
 now = timezone.now()
 def home(request):
@@ -100,6 +110,7 @@ def investment_list(request):
 def investment_list(request):
    investments = Investment.objects.filter(acquired_date__lte=timezone.now())
    return render(request, 'portfolio/investment_list.html', {'investments': investments})
+
 
 @login_required
 def investment_new(request):
@@ -198,3 +209,36 @@ def portfolio(request,pk):
    #                                                    })
 
 
+
+
+
+
+#class pdfDetail(PDFTemplateResponseMixin,DetailView):
+#    template_name = 'pdf_detail.html'
+#    context_object_name='investment'
+#    model= Investment
+
+def genrate_investment_pdf(request,pk):
+    investments_pdf = Investment.objects.filter(investment=pk)
+    context = { 'investments': investments_pdf }
+    pdf = render_to_pdf('portfolio/pdf.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['content-Disposition'] = 'filename = "investments_{}.pdf"'
+        return pdf
+    return HttpResponse("Not Found")
+
+@login_required
+def investments_download(request, pk):
+    investments = Investment.objects.filter(pk=pk)
+
+    data = 'customer, category, description, acquired_value, acquired_date, recent_value,recent_date\n'
+    for investment in investments:
+        data += '%s,%s,%s,%s\n' % (investment.customer, investments.category, investments.description,
+                                   investments.acquired_value, investments.recent_value, investments.recent_date)
+
+    response = HttpResponse(data)
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="investments.csv"'
+
+    return response

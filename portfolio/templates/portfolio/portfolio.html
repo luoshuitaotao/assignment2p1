@@ -13,8 +13,11 @@
 </head>
 <body>
  <header class="jumbotron my-4 table-responsive" style="background: white">
-      <p class="lead text-nowrap"><b>Eagle Financial Services, your Midwest Financial Services Partner</b></p>
-         </header>
+      <p class="lead text-nowrap"><b>Eagle Financial Services, your Midwest Financial Services Partner</b>
+
+      </p>
+ </header>
+
 <div class="row">
     <h2 class="navbar-brand" style="padding-left: 15Px">Customer Portfolio</h2>
 </div>
@@ -32,12 +35,9 @@
         </thead>
         <tbody>
         <tr bgcolor="white">
-            {% for investment in investments %}
-            <th>{{ investment. }}</th>
-            <th>{{ investment. }}</th>
-            <th>{{ investment. }}</th>
-            <!--<th>{{ overall_portfolio_current }} - {{ overall_portfolio_initial|intcomma }}</th>-->
-            {% endfor %}
+            <td>{{ sum_acquired_value.acquired_value__sum |addition:sum_of_initial_stock_value |intcomma}}</td>
+            <td>{{ sum_recent_value.recent_value__sum |addition:sum_current_stocks_value |intcomma}}</td>
+            <td>{{ sum_recent_value.recent_value__sum |addition:sum_current_stocks_value |sub:sum_acquired_value.acquired_value__sum |sub:sum_of_initial_stock_value|intcomma}}</td>
         </tr>
         </tbody>
     </table>
@@ -129,11 +129,10 @@
         </tr>
         </thead>
             <tr bgcolor="white">
-                <!--{% autoescape off %}-->
-                <td>{{ sum_acquired_value|intcomma }}</td>
-                <td>{{ sum_recent_value|intcomma }}</td>
-                <td>{{ sum_recent_value|sub:sum_acquired_value|intcomma }}</td>
-                <!--{% endautoescape %}
+                <td>{{ sum_acquired_value.acquired_value__sum }}</td>
+                <td>{{ sum_recent_value.recent_value__sum }}</td>
+                <td>{{ sum_recent_value.recent_value__sum|sub:sum_acquired_value.acquired_value__sum }}</td>
+
             </tr>
     </table>
 

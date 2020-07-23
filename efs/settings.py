@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'mathfilters',
     'django.contrib.humanize',
+    'easy_pdf',
 ]
 
 MIDDLEWARE = [
