@@ -229,12 +229,11 @@ def genrate_investment_pdf(request,pk):
     return HttpResponse("Not Found")
 
 @login_required
-def investments_download(request, pk):
-    investments = Investment.objects.filter(pk=pk)
-
+def investments_download(request):
+    investments = Investment.objects.filter()
     data = 'customer, category, description, acquired_value, acquired_date, recent_value,recent_date\n'
     for investment in investments:
-        data += '%s,%s,%s,%s\n' % (investment.customer, investments.category, investments.description,
+        data += '%s,%s,%s,%s\n' % (investments.customer, investments.category, investments.description,
                                    investments.acquired_value, investments.recent_value, investments.recent_date)
 
     response = HttpResponse(data)
@@ -242,3 +241,51 @@ def investments_download(request, pk):
     response['Content-Disposition'] = 'attachment;filename="investments.csv"'
 
     return response
+
+@login_required
+def mutual_list(request):
+   mutuals = Mutual.objects.filter(purchase_date__lte=timezone.now())
+   return render(request, 'portfolio/mutual_list.html', {'mutuals': mutuals})
+
+
+@login_required
+def mutual_new(request):
+   if request.method == "POST":
+       form = MutualForm(request.POST)
+       if form.is_valid():
+           mutual = form.save(commit=False)
+           mutual.created_date = timezone.now()
+           mutual.save()
+           mutuals = Mutual.objects.filter(purchase_date__lte=timezone.now())
+           return render(request, 'portfolio/mutual_list.html',
+                         {'mutuals': mutuals})
+   else:
+       form = MutualForm()
+       # print("Else")
+   return render(request, 'portfolio/mutual_new.html', {'form': form})
+
+
+
+@login_required
+def mutual_edit(request, pk):
+    mutual = get_object_or_404(Mutual, pk=pk)
+    if request.method == "POST":
+        form = MutualForm(request.POST, instance=mutual)
+        if form.is_valid():
+            mutual = form.save()
+            # mutual.customer = mutual.id
+            mutual.updated_date = timezone.now()
+            mutual.save()
+            mutuals = Mutual.objects.filter(purchase_date__lte=timezone.now())
+            return render(request, 'portfolio/mutual_list.html', {'mutuals': mutuals})
+    else:
+       # print("else")
+       form = MutualForm(instance=mutual)
+       return render(request, 'portfolio/mutual_edit.html', {'form': form})
+
+@login_required
+def mutual_delete(request, pk):
+    mutual = get_object_or_404(Mutual, pk=pk)
+    mutual.delete()
+    mutuals = Mutual.objects.filter(purchase_date__lte=timezone.now())
+    return render(request, 'portfolio/mutual_list.html', {'mutuals': mutuals})

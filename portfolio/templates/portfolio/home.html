@@ -14,20 +14,20 @@
 
       <div class="col">
         <div class="fa-credit-card text-center" >
-          <img class="card-img-top" src="{% static "images/customer.jpg" %}" alt="" style="height: 200px">
+          <img class="card-img-top" src="{% static "images/customer.jpg" %}" alt="" style="height: 180px">
           <div class="card-body">
             <h4 class="card-title">Customer</h4>
 
           </div>
           <div class="card-footer">
-            <a href="{% url 'portfolio:customer_list' %}" class="btn btn-primary">View Details!</a>
+            <a href="{% url 'portfolio:customer_list' %}" class="btn btn-primary">View Details</a>
           </div>
         </div>
       </div>
 
       <div class="col">
         <div class="fa-credit-card text-center text-nowrap">
-          <img class="card-img-top" src="{% static "images/nonstock.jpg" %}" alt="" style="height: 200px">
+          <img class="card-img-top" src="{% static "images/nonstock.jpg" %}" alt="" style="height: 180px">
           <div class="card-body">
             <h4 class="card-title">Stock Investments</h4>
           </div>
@@ -39,7 +39,7 @@
 
       <div class="col">
         <div class="fa-credit-card text-center">
-          <img class="card-img-top" src="{% static "images/stocks.jpg" %}" alt="" style="height: 200px">
+          <img class="card-img-top" src="{% static "images/stocks.jpg" %}" alt="" style="height: 180px">
           <div class="card-body">
             <h4 class="card-title">Stocks</h4>
           </div>
@@ -48,7 +48,17 @@
           </div>
         </div>
       </div>
-
+      <div class="col">
+        <div class="fa-credit-card text-center">
+          <img class="card-img-top" src="{% static "images/mutual_funds.jpg" %}" alt="" style="height: 180px">
+          <div class="card-body">
+            <h4 class="card-title">Mutual Funds</h4>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'portfolio:mutual_list' %}" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
 
         </div>
       </div>

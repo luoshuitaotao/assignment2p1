@@ -24,4 +24,8 @@ urlpatterns = [
     #path ('pdfDetail', views.pdfDetaill, name='pdfDetail'),
     #path('deatil/<int:id>', views.detail_page,name="detail"),
     path ('investment/download/', views.investments_download,name='investments_download'),
+    path ('mutual_list', views.mutual_list, name='mutual_list'),
+    path ('mutual/create/', views.mutual_new, name='mutual_new'),
+    path ('mutual/<int:pk>/edit/', views.mutual_edit, name='mutual_edit'),
+    path ('mutual/<int:pk>/delete/', views.mutual_delete, name='mutual_delete'),
 ]
