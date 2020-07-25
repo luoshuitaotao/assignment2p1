@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 import requests
+import alpha_vantage
 
 # Create your models here.
 class Customer(models.Model):
@@ -77,11 +78,11 @@ class Stock(models.Model):
     def current_stock_price(self):
         symbol_f = str(self.symbol)
         main_api = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol='
-        api_key = '&interval=1min&apikey=GE5KWRGPX3P6KXU8'
+        api_key = '&interval=1min&apikey = GE5KWRGPX3P6KXU8'
         url = main_api + symbol_f + api_key
         json_data = requests.get(url).json()
-        #open_price = float(json_data["Global Quote"]["02. open"])
-        open_price = float(json_data.get('Global Quote', {}).get("2.price", self.purchase_price))
+        open_price = float(json_data["Global Quote"]["02. open"])
+        #open_price = json_data.get('Global Quote', {}).get("2.price", self.purchase_price)
         share_value = open_price
         return share_value
 
@@ -111,11 +112,11 @@ class Mutual(models.Model):
     def current_mutual_price(self):
         symbol_f = str(self.symbol)
         main_api = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol='
-        api_key = '&interval=1min&apikey= GE5KWRGPX3P6KXU8'
+        api_key = '&interval=1min&apikey= TE1CQ8UZU63LF59L'
         url = main_api + symbol_f + api_key
         json_data = requests.get(url).json()
-        #open_price = float(json_data["Global Quote"]["02. open"])
-        open_price = float(json_data.get('Global Quote', {}).get("2.price", self.purchase_price))
+        open_price = float(json_data["Global Quote"]["02. open"])
+        #open_price = float(json_data.get('Global Quote', {}).get("2.price", self.purchase_price))
         share_value = open_price
         return share_value
     def current_mutual_value(self):
