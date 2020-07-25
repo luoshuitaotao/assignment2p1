@@ -35,9 +35,9 @@
         </thead>
         <tbody>
         <tr bgcolor="white">
-            <td>{{ sum_acquired_value.acquired_value__sum |addition:sum_of_initial_stock_value |intcomma}}</td>
-            <td>{{ sum_recent_value.recent_value__sum |addition:sum_current_stocks_value |intcomma}}</td>
-            <td>{{ sum_recent_value.recent_value__sum |addition:sum_current_stocks_value |sub:sum_acquired_value.acquired_value__sum |sub:sum_of_initial_stock_value|intcomma}}</td>
+            <td>{{ sum_acquired_value.acquired_value__sum |addition:sum_of_initial_stock_value|addition:sum_of_initial_mutual_value |intcomma}}</td>
+            <td>{{ sum_recent_value.recent_value__sum |addition:sum_current_stocks_value |addition:sum_current_mutual_value|intcomma}}</td>
+            <td>{{ sum_recent_value.recent_value__sum |addition:sum_current_stocks_value |addition:sum_current_mutual_value|sub:sum_acquired_value.acquired_value__sum |sub:sum_of_initial_stock_value|sub:sum_of_initial_mutual_value |intcomma }}</td>
         </tr>
         </tbody>
     </table>
@@ -136,8 +136,53 @@
             </tr>
     </table>
 
+    <h2 class="navbar-brand" style="padding-left: 15Px"><u>Mutual Funds Information</u></h2>
+    <table class="table table-hover table-responsive-lg text-center">
+        <thead>
+        <tr class="bg-info">
+            <th>Customer</th>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Initial Stock Price</th>
+            <th>Initial Stock Value</th>
+            <th>Current Stock Price</th>
+            <th>Current Stock Value</th>
+            <th>Results</th>
+        </tr>
+        </thead>
+         <tbody>
+            {% for mutual in mutuals %}
+            <tr bgcolor="white">
+                <td>{{ mutual.customer }}</td>
+                <td>{{ mutual.symbol }}</td>
+                <td>{{ mutual.name }}</td>
+                <td>{{ mutual.shares|intcomma }}</td>
+                <td>{{ mutual.purchase_price|intcomma }}</td>
+                <td>{{ mutual.initial_mutual_value|intcomma }}</td>
+                <td>{{ mutual.purchase_price|intcomma }}</td>
+                <td>{{ mutual.current_mutual_value|intcomma }}</td>
+                <td>{{ mutual.current_mutual_value|sub:mutual.purchase_price|intcomma  }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        <table class="table table-hover table-responsive-lg text-center">
+        <thead>
+        <tr class="bg-info">
+            <th>Total Initial Mutual Funds</th>
+            <th>Total of Current Mutual Funds</th>
+            <th>Results</th>
+        </tr>
+        </thead>
+            <tr bgcolor="white">
+                <td>{{ sum_of_initial_mutual_value|intcomma }}</td>
+                <td>{{ sum_current_mutual_value|intcomma }}</td>
+                <td>{{ sum_current_mutual_value|sub:sum_of_initial_mutual_value|intcomma }}</td>
+            </tr>
+    </table>
+
 </div>
-
 </body>
-
+</html>
 {% endblock %}

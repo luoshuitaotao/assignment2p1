@@ -165,6 +165,7 @@ def portfolio(request,pk):
    customers = Customer.objects.filter(created_date__lte=timezone.now())
    investments =Investment.objects.filter(customer=pk)
    stocks = Stock.objects.filter(customer=pk)
+   mutuals = Mutual.objects.filter (customer=pk)
    sum_recent_value = Investment.objects.filter(customer=pk).aggregate(Sum('recent_value'))
    sum_acquired_value = Investment.objects.filter(customer=pk).aggregate(Sum('acquired_value'))
    #overall_investment_results = sum_recent_value-sum_acquired_value
@@ -172,21 +173,31 @@ def portfolio(request,pk):
    # Initialize the value of the stocks
    sum_current_stocks_value = 0
    sum_of_initial_stock_value = 0
+   sum_current_mutual_value = 0
+   sum_of_initial_mutual_value = 0
 
    # Loop through each stock and add the value to the total
    for stock in stocks:
         sum_current_stocks_value += stock.current_stock_value()
         sum_of_initial_stock_value += stock.initial_stock_value()
 
+   for mutual in mutuals:
+       sum_current_mutual_value += mutual.current_mutual_value ()
+       sum_of_initial_mutual_value += mutual.initial_mutual_value ()
 
    return render(request, 'portfolio/portfolio.html', {'customers': customers,
                                                        'investments': investments,
                                                        'stocks': stocks,
+                                                       'mutuals':mutuals,
                                                        'sum_acquired_value': sum_acquired_value,
                                                        'sum_recent_value': sum_recent_value,
                                                         'sum_current_stocks_value': sum_current_stocks_value,
                                                         'sum_of_initial_stock_value': sum_of_initial_stock_value,
+                                                       'sum_current_mutual_value':sum_current_mutual_value,
+                                                       'sum_of_initial_mutual_value':sum_of_initial_mutual_value,
+
                                                        })
+
    # Initialize the value of the stocks
    #total_initial_investments = 0
    #total_current_investments = 0
