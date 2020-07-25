@@ -17,6 +17,12 @@ from django.template.loader import render_to_string, get_template
 from django.http import HttpResponse
 
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import CustomerSerializer
+
+
 now = timezone.now()
 def home(request):
    return render(request, 'portfolio/home.html',
@@ -300,3 +306,14 @@ def mutual_delete(request, pk):
     mutual.delete()
     mutuals = Mutual.objects.filter(purchase_date__lte=timezone.now())
     return render(request, 'portfolio/mutual_list.html', {'mutuals': mutuals})
+
+
+
+# List at the end of the views.py
+# Lists all customers
+class CustomerList(APIView):
+
+    def get(self,request):
+        customers_json = Customer.objects.all()
+        serializer = CustomerSerializer(customers_json, many=True)
+        return Response(serializer.data)
