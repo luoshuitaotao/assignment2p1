@@ -30,6 +30,7 @@ urlpatterns = [
     path ('mutual/<int:pk>/edit/', views.mutual_edit, name='mutual_edit'),
     path ('mutual/<int:pk>/delete/', views.mutual_delete, name='mutual_delete'),
     url (r'^customers_json/', views.CustomerList.as_view ()),
+    url (r'^password/$', views.change_password, name='change_password'),
 
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

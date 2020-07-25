@@ -21,6 +21,40 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CustomerSerializer
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return render(request, 'registration/password_reset_complete.html', {'portfolio': password_reset_complete})
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'registration/change_password.html', {
+        'form': form
+    })
+
+def password_reset(request):
+    return render(request, 'registration/password_reset_form.html',
+    {'portfolio': password_reset})
+
+
+def password_reset_confirm(request):
+    return render(request, 'registration/password_reset_confirm.html',
+    {'portfolio': password_reset_confirm})
+
+def password_reset_email(request):
+    return render(request, 'registration/password_reset_email.html',
+    {'portfolio': password_reset_email})
+
+def password_reset_complete(request):
+    return render(request, 'registration/password_reset_complete.html',
+    {'portfolio': password_reset_complete})
+
 
 
 now = timezone.now()

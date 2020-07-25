@@ -4,11 +4,21 @@
 
 
 {% block content %}
+
   <h1>Log-in</h1>
+  {% if form.errors %}
+    <p>
+      Your username and password didn't match.
+      Please try again.
+    </p>
+  {% else %}
+  {% endif %}
   <p>Please, use the following form to log-in:</p>
   <form action="." method="post">
     {{ form.as_p }}
     {% csrf_token %}
     <p><input type="submit" value="Log-in"></p>
+    <p><a href="{% url "password_reset" %}">Forgotten your  password?</a></p>
   </form>
+
 {% endblock %}
