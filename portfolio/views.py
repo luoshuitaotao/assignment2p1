@@ -238,30 +238,6 @@ def portfolio(request,pk):
 
                                                        })
 
-   # Initialize the value of the stocks
-   #total_initial_investments = 0
-   #total_current_investments = 0
-
-   # Loop through each investment and add the value to the total
-   #for investment in investments:
-   #     total_initial_investments += investment.acquired_value()
-   #     total_current_investments += investment.recent_value()
-
-
-   #return render(request, 'portfolio/portfolio.html', {'customers': customers,
-   #                                                    'investments': investments,
-   #                                                    'stocks': stocks,
-   #                                                    'sum_acquired_value': sum_acquired_value,
-   #                                                    'sum_recent_value': sum_recent_value,
-   #                                                     'sum_current_stocks_value': sum_current_stocks_value,
-   #                                                     'sum_of_initial_stock_value': sum_of_initial_stock_value,
-   #                                                    'total_current_investments':total_current_investments,
-   #                                                    'total_initial_investments':total_initial_investments
-   #                                                    })
-
-
-
-
 
 
 #class pdfDetail(PDFTemplateResponseMixin,DetailView):

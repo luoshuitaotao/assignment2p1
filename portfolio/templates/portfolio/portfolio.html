@@ -66,9 +66,9 @@
                 <td>{{ stock.shares|intcomma }}</td>
                 <td>{{ stock.purchase_price|intcomma }}</td>
                 <td>{{ stock.initial_stock_value|intcomma }}</td>
-                <td>{{ stock.purchase_price|intcomma }}</td>
+                <td>{{ stock.current_stock_price|intcomma }}</td>
                 <td>{{ stock.current_stock_value|intcomma }}</td>
-                <td>{{ stock.current_stock_value|sub:stock.purchase_price|intcomma  }}</td>
+                <td>{{ stock.current_stock_value|sub:stock.initial_stock_value|intcomma  }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -160,9 +160,9 @@
                 <td>{{ mutual.shares|intcomma }}</td>
                 <td>{{ mutual.purchase_price|intcomma }}</td>
                 <td>{{ mutual.initial_mutual_value|intcomma }}</td>
-                <td>{{ mutual.purchase_price|intcomma }}</td>
+                <td>{{ mutual.current_mutual_price|intcomma }}</td>
                 <td>{{ mutual.current_mutual_value|intcomma }}</td>
-                <td>{{ mutual.current_mutual_value|sub:mutual.purchase_price|intcomma  }}</td>
+                <td>{{ mutual.current_mutual_value|sub:mutual.initial_mutual_value|intcomma  }}</td>
             </tr>
         {% endfor %}
         </tbody>
